@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>God of Art — Documentation | Campass Studios</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #c9963b;
+    --gold-light: #e8b96a;
+    --dark-0: #080604;
+    --dark-1: #100d08;
+    --dark-2: #1a1510;
+    --dark-3: #26200e;
+    --text-primary: #f0e4c8;
+    --text-muted: #9a8060;
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Crimson Pro', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark-0);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--dark-1);
+    border-bottom: 0.5px solid rgba(201,150,59,0.2);
+    padding: 1rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-logo { font-family: var(--font-display); font-size: 0.7rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
+  .topbar-badge { font-family: var(--font-display); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dark-0); background: var(--gold); padding: 0.4rem 1rem; text-decoration: none; }
+
+  /* HERO */
+  .doc-hero {
+    background: linear-gradient(to bottom, var(--dark-1), var(--dark-0));
+    border-bottom: 0.5px solid rgba(201,150,59,0.15);
+    padding: 5rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .hero-label { font-family: var(--font-display); font-size: 0.55rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .hero-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; color: var(--text-primary); margin-bottom: 0.5rem; }
+  .hero-sub { font-style: italic; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+  .hero-meta { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .meta-label { font-family: var(--font-display); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-family: var(--font-display); font-size: 0.8rem; color: var(--gold); letter-spacing: 0.05em; }
+
+  /* LAYOUT */
+  .doc-layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--dark-1);
+    border-right: 0.5px solid rgba(201,150,59,0.12);
+    padding: 2.5rem 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-section { margin-bottom: 2rem; }
+  .sidebar-heading { font-family: var(--font-display); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); padding: 0 1.5rem; margin-bottom: 0.6rem; }
+  .sidebar-link {
+    display: block;
+    padding: 0.45rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .sidebar-link:hover { color: var(--gold-light); border-left-color: var(--gold); background: rgba(201,150,59,0.05); }
+  .sidebar-link.active { color: var(--gold); border-left-color: var(--gold); }
+
+  /* CONTENT */
+  .doc-content { padding: 3.5rem 5rem; max-width: 860px; }
+
+  .doc-section { margin-bottom: 4rem; padding-bottom: 3rem; border-bottom: 0.5px solid rgba(201,150,59,0.1); }
+  .doc-section:last-child { border-bottom: none; }
+
+  .section-tag { font-family: var(--font-display); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem; }
+
+  p { color: var(--text-muted); margin-bottom: 1rem; }
+  p strong { color: var(--text-primary); font-weight: 400; }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 1.2rem; margin: 1.5rem 0; }
+  .step { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .step-num { width: 32px; height: 32px; min-width: 32px; border: 0.5px solid rgba(201,150,59,0.4); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 0.7rem; color: var(--gold); background: var(--dark-0); }
+  .step-body { flex: 1; }
+  .step-title-text { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 0.3rem; }
+  .step-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* TECH TABLE */
+  .tech-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  .tech-table th { font-family: var(--font-display); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-align: left; padding: 0.6rem 1rem; border-bottom: 0.5px solid rgba(201,150,59,0.2); }
+  .tech-table td { padding: 0.7rem 1rem; border-bottom: 0.5px solid rgba(201,150,59,0.07); color: var(--text-muted); font-size: 0.95rem; }
+  .tech-table td:first-child { color: var(--text-primary); font-family: var(--font-display); font-size: 0.65rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .tech-table tr:hover td { background: rgba(201,150,59,0.03); }
+  .badge-yes { color: #5dca8a; font-family: var(--font-display); font-size: 0.6rem; }
+  .badge-no { color: var(--text-muted); font-family: var(--font-display); font-size: 0.6rem; }
+
+  /* CODE */
+  .code-block { background: var(--dark-2); border: 0.5px solid rgba(201,150,59,0.15); padding: 1.2rem 1.5rem; margin: 1.2rem 0; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-light); line-height: 1.7; overflow-x: auto; }
+  .code-block .comment { color: var(--text-muted); }
+
+  /* NOTE BOX */
+  .note { background: rgba(201,150,59,0.06); border-left: 2px solid var(--gold); padding: 1rem 1.5rem; margin: 1.5rem 0; }
+  .note-title { font-family: var(--font-display); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .note p { margin: 0; font-size: 0.95rem; }
+
+  /* GRID FEATURES */
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .feature-card { border: 0.5px solid rgba(201,150,59,0.15); padding: 1.2rem 1.4rem; background: rgba(201,150,59,0.03); }
+  .feature-title { font-family: var(--font-display); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .feature-desc { font-size: 0.9rem; color: var(--text-muted); }
+
+  /* FOOTER */
+  .doc-footer { background: var(--dark-1); border-top: 0.5px solid rgba(201,150,59,0.12); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .doc-footer p { color: var(--text-muted); font-size: 0.85rem; margin: 0; }
+  .doc-footer a { color: var(--gold); text-decoration: none; font-family: var(--font-display); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  @media (max-width: 800px) {
+    .topbar { padding: 1rem 1.5rem; }
+    .doc-hero { padding: 3rem 1.5rem; }
+    .doc-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .doc-content { padding: 2rem 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .doc-footer { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="topbar-logo" href="https://www.fab.com/sellers/Campass%20Studios" target="_blank">Campass Studios</a>
+  <a class="topbar-badge" href="https://www.fab.com/sellers/Campass%20Studios" target="_blank">Get on Fab</a>
+</div>
+
+<!-- HERO -->
+<div class="doc-hero">
+  <p class="hero-label">Official Documentation</p>
+  <h1 class="hero-title">God of Art</h1>
+  <p class="hero-sub">Ancient Temple Environment Pack — Unreal Engine</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-label">Publisher</span><span class="meta-value">Campass Studios</span></div>
+    <div class="meta-item"><span class="meta-label">Version</span><span class="meta-value">v1.0</span></div>
+    <div class="meta-item"><span class="meta-label">Engine</span><span class="meta-value">UE 4.20 — 5.0</span></div>
+    <div class="meta-item"><span class="meta-label">Category</span><span class="meta-value">3D Environment</span></div>
+    <div class="meta-item"><span class="meta-label">Platform</span><span class="meta-value">Windows / Mac</span></div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="doc-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <p class="sidebar-heading">Getting Started</p>
+      <a class="sidebar-link active" href="#overview">Overview</a>
+      <a class="sidebar-link" href="#installation">Installation</a>
+      <a class="sidebar-link" href="#quickstart">Quick Start</a>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-heading">Content</p>
+      <a class="sidebar-link" href="#whats-included">What's Included</a>
+      <a class="sidebar-link" href="#technical">Technical Specs</a>
+      <a class="sidebar-link" href="#structure">Folder Structure</a>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-heading">Usage</p>
+      <a class="sidebar-link" href="#demo-level">Demo Level</a>
+      <a class="sidebar-link" href="#customization">Customization</a>
+      <a class="sidebar-link" href="#performance">Performance Tips</a>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-heading">Support</p>
+      <a class="sidebar-link" href="#faq">FAQ</a>
+      <a class="sidebar-link" href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="doc-content">
+
+    <!-- OVERVIEW -->
+    <div class="doc-section" id="overview">
+      <p class="section-tag">Introduction</p>
+      <h2 class="section-title">Overview</h2>
+      <p><strong>God of Art</strong> is a cinematic, game-ready ancient temple environment pack built in Unreal Engine. Inspired by Khmer and Hindu architectural traditions, it delivers AAA-quality visuals — hand-sculpted stone idols, crumbling ruins, jungle overgrowth, and dramatic torch-lit atmosphere.</p>
+      <p>This is a <strong>Blueprint-only</strong> project. No C++ knowledge is required. The pack includes a fully built demo level with cinematic lighting, Lumen Global Illumination, particle effects, and all assets organized for easy migration into your own project.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-title">Lumen GI Ready</div>
+          <div class="feature-desc">Full dynamic global illumination with warm torch-lit volumetric atmosphere.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Nanite Compatible</div>
+          <div class="feature-desc">High-poly meshes optimized with Nanite for maximum visual fidelity.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">4K PBR Textures</div>
+          <div class="feature-desc">Full PBR pipeline — Base Color, Normal, Roughness, Metallic up to 4096×4096.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Demo Level Included</div>
+          <div class="feature-desc">A pre-built cinematic scene ready to render or use as a starting point.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTALLATION -->
+    <div class="doc-section" id="installation">
+      <p class="section-tag">Setup</p>
+      <h2 class="section-title">Installation</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title-text">Purchase & Download from Fab</div>
+            <div class="step-desc">Go to <strong>fab.com</strong>, find God of Art by Campass Studios, and click Add to My Library. Then open Epic Games Launcher → Library → Fab Library.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title-text">Add to Project</div>
+            <div class="step-desc">Click <strong>Add to Project</strong> next to God of Art and select your Unreal Engine project. The assets will be added to your Content folder automatically.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title-text">Open Unreal Engine</div>
+            <div class="step-desc">Launch your project. In the <strong>Content Browser</strong>, navigate to <code>Content → GodOfArt</code> to find all assets.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title-text">Open the Demo Level</div>
+            <div class="step-desc">Navigate to <code>Content → GodOfArt → Maps → DemoLevel</code> and double-click to open the pre-built cinematic scene.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-title">Recommended Engine Version</div>
+        <p>For best results with Lumen and Nanite features, use <strong>Unreal Engine 5.0 or above</strong>. The pack is also compatible with UE 4.20, 4.22, and 4.26 (Lumen/Nanite not available in UE4).</p>
+      </div>
+    </div>
+
+    <!-- QUICK START -->
+    <div class="doc-section" id="quickstart">
+      <p class="section-tag">Quick Start</p>
+      <h2 class="section-title">Migrate to Your Project</h2>
+      <p>To move assets from the demo project into your own game project:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title-text">Select Assets</div>
+            <div class="step-desc">In the Content Browser, select the <code>GodOfArt</code> folder or individual assets you want.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title-text">Right Click → Migrate</div>
+            <div class="step-desc">Right-click the selected assets → <strong>Asset Actions → Migrate</strong>.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title-text">Choose Destination</div>
+            <div class="step-desc">Navigate to your target project's <code>Content</code> folder and click <strong>Select Folder</strong>. All dependencies are copied automatically.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT'S INCLUDED -->
+    <div class="doc-section" id="whats-included">
+      <p class="section-tag">Content</p>
+      <h2 class="section-title">What's Included</h2>
+      <table class="tech-table">
+        <thead><tr><th>Asset Type</th><th>Description</th><th>Count</th></tr></thead>
+        <tbody>
+          <tr><td>Stone Idol Meshes</td><td>Giant deity face statues, carved with detailed painted markings</td><td>3+</td></tr>
+          <tr><td>Architecture Meshes</td><td>Brick columns, walls, arches, broken debris, and floor tiles</td><td>15+</td></tr>
+          <tr><td>Foliage Meshes</td><td>Ferns, vines, hanging branches, moss, and jungle grass</td><td>10+</td></tr>
+          <tr><td>Prop Meshes</td><td>Stone altar, pedestals, torch holders, treasure chest, rubble</td><td>8+</td></tr>
+          <tr><td>Materials</td><td>Fully PBR master materials for stone, moss, wood, and soil</td><td>15</td></tr>
+          <tr><td>Material Instances</td><td>Customizable variations of each master material</td><td>30+</td></tr>
+          <tr><td>Textures</td><td>Base Color, Normal, ORM (Occlusion/Roughness/Metallic) maps</td><td>60+</td></tr>
+          <tr><td>Particle Effects</td><td>Torch flame, floating dust, ember sparks, firefly ambience</td><td>4</td></tr>
+          <tr><td>Demo Level</td><td>Pre-built cinematic environment with lighting and camera setup</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TECHNICAL SPECS -->
+    <div class="doc-section" id="technical">
+      <p class="section-tag">Technical</p>
+      <h2 class="section-title">Technical Specifications</h2>
+      <table class="tech-table">
+        <thead><tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Number of Unique Meshes</td><td>40+</td></tr>
+          <tr><td>Vertex Count Range</td><td>500 – 85,000 per mesh</td></tr>
+          <tr><td>Collision</td><td>Yes — automatic + custom on key meshes</td></tr>
+          <tr><td>LODs</td><td><span class="badge-yes">Yes</span> — 3 levels (LOD0, LOD1, LOD2)</td></tr>
+          <tr><td>Rigged</td><td><span class="badge-no">No</span></td></tr>
+          <tr><td>Animated</td><td><span class="badge-no">No</span> — static meshes only</td></tr>
+          <tr><td>Number of Materials</td><td>15 master materials</td></tr>
+          <tr><td>Number of Material Instances</td><td>30+</td></tr>
+          <tr><td>Number of Textures</td><td>60+</td></tr>
+          <tr><td>Texture Resolutions</td><td>512×512 up to 4096×4096</td></tr>
+          <tr><td>Lumen GI Support</td><td><span class="badge-yes">Yes</span> (UE5 only)</td></tr>
+          <tr><td>Nanite Support</td><td><span class="badge-yes">Yes</span> (UE5 only)</td></tr>
+          <tr><td>Supported Platforms</td><td>Windows, Mac</td></tr>
+          <tr><td>Project Type</td><td>Blueprint only — no C++ required</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FOLDER STRUCTURE -->
+    <div class="doc-section" id="structure">
+      <p class="section-tag">Organization</p>
+      <h2 class="section-title">Folder Structure</h2>
+      <div class="code-block">
+Content/
+└── GodOfArt/
+    ├── Maps/
+    │   └── <span class="comment">DemoLevel        ← Open this first</span>
+    ├── Meshes/
+    │   ├── Architecture/    <span class="comment">← Columns, walls, floors</span>
+    │   ├── Idols/           <span class="comment">← Stone deity statues</span>
+    │   ├── Foliage/         <span class="comment">← Plants, vines, moss</span>
+    │   └── Props/           <span class="comment">← Altars, torches, debris</span>
+    ├── Materials/
+    │   ├── Masters/         <span class="comment">← Master material files</span>
+    │   └── Instances/       <span class="comment">← Customizable instances</span>
+    ├── Textures/            <span class="comment">← All PBR texture maps</span>
+    └── Particles/           <span class="comment">← Fire, dust, embers</span>
+      </div>
+    </div>
+
+    <!-- DEMO LEVEL -->
+    <div class="doc-section" id="demo-level">
+      <p class="section-tag">Usage</p>
+      <h2 class="section-title">Using the Demo Level</h2>
+      <p>The included demo level is a fully lit, camera-ready scene. You can use it as-is for renders, or as a reference to build your own scenes.</p>
+      <div class="note">
+        <div class="note-title">To Render a Cinematic Screenshot</div>
+        <p>Open DemoLevel → Press <strong>G</strong> to hide editor UI → Press <strong>Ctrl + Shift + F11</strong> to enter high-res screenshot mode → Set multiplier to 4x for ultra quality.</p>
+      </div>
+    </div>
+
+    <!-- CUSTOMIZATION -->
+    <div class="doc-section" id="customization">
+      <p class="section-tag">Customization</p>
+      <h2 class="section-title">Customizing Materials</h2>
+      <p>All materials use a <strong>master material + instance</strong> workflow. To change colors, roughness, or texture tiling on any asset:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title-text">Find the Material Instance</div>
+            <div class="step-desc">In Content Browser → <code>GodOfArt/Materials/Instances</code>, find the instance used by your asset.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title-text">Double-click to Edit</div>
+            <div class="step-desc">Open the instance and enable the checkboxes next to parameters you want to override — color, roughness, normal intensity, and tiling.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title-text">Save</div>
+            <div class="step-desc">Press <strong>Ctrl+S</strong> to save. Changes apply instantly in the viewport.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="doc-section" id="performance">
+      <p class="section-tag">Optimization</p>
+      <h2 class="section-title">Performance Tips</h2>
+      <p>For use in real-time games (vs cinematic renders), consider these optimizations:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title-text">Enable Nanite on Heavy Meshes</div>
+            <div class="step-desc">Select the stone idol meshes → Details panel → Enable <strong>Nanite</strong> for automatic polygon streaming (UE5 only).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title-text">Use Cull Distance Volumes</div>
+            <div class="step-desc">Add a Cull Distance Volume around dense foliage areas to automatically hide small meshes at distance.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title-text">Lower Texture Streaming Pool</div>
+            <div class="step-desc">If you see texture pop-in, increase the texture streaming pool in <code>Project Settings → Rendering</code>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="doc-section" id="faq">
+      <p class="section-tag">Help</p>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+
+      <div class="note">
+        <div class="note-title">Does this work in Unreal Engine 4?</div>
+        <p>Yes — compatible with UE 4.20, 4.22, and 4.26. However Lumen and Nanite features are only available in UE5. In UE4, static lighting (baked) will be used instead.</p>
+      </div>
+      <div class="note">
+        <div class="note-title">Do I need C++ to use this?</div>
+        <p>No. This is a 100% Blueprint project. No programming knowledge is required.</p>
+      </div>
+      <div class="note">
+        <div class="note-title">Can I use this in a commercial game?</div>
+        <p>Yes. A standard Fab license allows use in commercial games and applications. See Fab's licensing terms for full details.</p>
+      </div>
+      <div class="note">
+        <div class="note-title">Can I modify the assets?</div>
+        <p>Yes. All materials and meshes are fully editable. You can adjust, retexture, or resize any asset to fit your project.</p>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="doc-section" id="contact">
+      <p class="section-tag">Support</p>
+      <h2 class="section-title">Contact & Support</h2>
+      <p>If you have questions, issues, or feedback about this asset pack, please reach out through our Fab seller page. We aim to respond within 48 hours.</p>
+      <a href="https://www.fab.com/sellers/Campass%20Studios" target="_blank" style="display:inline-block; margin-top:1rem; font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:#080604; background:#c9963b; padding:0.9rem 2rem; text-decoration:none;">Contact on Fab ↗</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <p>© 2026 Campass Studios. God of Art v1.0 Documentation.</p>
+  <a href="https://www.fab.com/sellers/Campass%20Studios" target="_blank">Fab Marketplace ↗</a>
+</div>
+
+</body>
+</html>
